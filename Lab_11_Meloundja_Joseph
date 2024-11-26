@@ -1,0 +1,58 @@
+//Meloundja Joseph
+#include <cmath>   // For math functions, like squaring numbers
+#include <iostream>// For input/output, to display the results
+#include <iomanip> // For formatting the output (like setting decimal places)
+#include <cstdlib> // For generating random numbers
+#include <ctime>   // For getting the current time, which we need to seed the random number generator
+
+using namespace std;
+
+int main() {
+    const int ARRAY_SIZE = 50;  // We're going to work with 50 numbers in the array
+    double alpha[ARRAY_SIZE];   // Array to store numbers
+    double total = 0;           // Variable to hold the sum of the random numbers
+    int hundredOccurence = 0;   // Counter for how many times 100 shows up
+
+    // First loop: Populate the array with squared numbers for the first 25 and tripled numbers for the next 25
+    for (int i = 0; i < 50; i++) {
+        if (i < 25) {
+            alpha[i] = pow(i, 2);  // Square the first 25 numbers
+        } else {
+            alpha[i] = i * 3;      // Triple the next 25 numbers
+        }
+        cout << alpha[i] << " ";  // Print the number
+        if ((i + 1) % 10 == 0) {  // After every 10 numbers, start a new line
+            cout << endl;
+        }
+    }
+
+    cout << "Randomly generated numbers:" << endl;
+
+    // Second loop: Generate 50 random numbers between 1 and 100
+    srand(time(0)); // Seed the random number generator so the results are different each time
+    for (int i = 0; i < 50; i++) {
+        alpha[i] = rand() % 100 + 1; // Generate random number between 1 and 100
+        total += alpha[i];            // Add the random number to the total sum
+        cout << alpha[i] << " ";      // Print the random number
+        if (alpha[i] == 100) {        // If the random number is 100, count it
+            hundredOccurence++;      // Increment the count for 100
+        }
+        if ((i + 1) % 10 == 0) {      // After every 10 numbers, start a new line
+            cout << endl;
+        }
+    }
+
+    // Calculate and display the total and average of the random numbers
+    double avg = total / 50; // Calculate the average of the numbers
+    cout << "Total sum of random numbers: " << total << endl;
+    cout << "Average of random numbers: " << fixed << setprecision(2) << avg << endl; // Display average with 2 decimal places
+
+    // Display how many times 100 appeared in the list
+    if (hundredOccurence > 0) {
+        cout << "There are " << hundredOccurence << " occurrences of 100." << endl;
+    } else {
+        cout << "There are no occurrences of 100." << endl; // If no 100 appeared, let the user know
+    }
+
+    return 0;  // End the program
+}
